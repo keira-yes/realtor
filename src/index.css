@@ -280,7 +280,7 @@ h6 {
   align-items: center;
   justify-content: space-around;
   margin: 0;
-  padding: 14px 40px;
+  padding: 12px 40px;
   list-style-type: none;
 }
 
@@ -288,8 +288,8 @@ h6 {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 4px;
   box-shadow: 6px 6px 16px #BECDE2, -6px -6px 16px #FFFFFF;
   background: #F2F3F7;
