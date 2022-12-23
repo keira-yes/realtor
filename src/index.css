@@ -292,17 +292,23 @@ h6 {
   height: 36px;
   border-radius: 4px;
   box-shadow: 6px 6px 16px #BECDE2, -6px -6px 16px #FFFFFF;
-  background: #F2F3F7;
-  transition: box-shadow 5s ease;
+  background-color: #F2F3F7;
+  transition: background-color .3s ease;
 }
 
 .navbar__item-link.active {
-  box-shadow: inset 4px 4px 8px rgba(190, 205, 226, 0.5), inset -5px -5px 30px #FFFFFF;
+  background-color: #4070F4;
+}
+
+.navbar__item-link.active .navbar__item-icon {
+  fill: #F2F3F7;
 }
 
 .navbar__item-icon {
   width: 22px;
   height: 22px;
+  fill: #4070F4;
+  transition: fill .3s ease;
 }
 
 
