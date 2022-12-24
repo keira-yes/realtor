@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase.config";
 import logo from "../assets/img/logo.svg";
 
@@ -33,9 +34,13 @@ const SignUp = () => {
             const auth = getAuth();
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
-            updateProfile(auth.currentUser, {
+            await updateProfile(auth.currentUser, {
                 displayName: name
             });
+            const data = {...formData};
+            delete data.password;
+            data.timestamp = serverTimestamp();
+            await setDoc(doc(db, "users", user.uid), data);
             navigate("/");
         } catch (error) {
             console.log(error);
