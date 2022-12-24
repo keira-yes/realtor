@@ -1,16 +1,20 @@
-import { useState } from 'react';
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { db } from "../firebase.config";
 import logo from "../assets/img/logo.svg";
 
 const SignUp = () => {
     const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        password: ''
+        name: "",
+        email: "",
+        password: ""
     });
     const [showPassword, setShowPassword] = useState(false);
 
     const { name, email, password } = formData;
+
+    const navigate = useNavigate();
 
     const onChangeInput = e => {
         setFormData(prevState => ({
@@ -21,6 +25,21 @@ const SignUp = () => {
 
     const onSetShowPassword = () => {
         setShowPassword(prevState => !prevState);
+    }
+
+    const onCreateUser = async (e) => {
+        e.preventDefault();
+        try {
+            const auth = getAuth();
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+            updateProfile(auth.currentUser, {
+                displayName: name
+            });
+            navigate("/");
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
@@ -34,7 +53,7 @@ const SignUp = () => {
                         <h1 className="auth-page__title">Sign Up</h1>
                     </header>
                     <div className="auth-page__form">
-                        <form className="form" name="sign-up">
+                        <form className="form" name="sign-up" onSubmit={onCreateUser}>
                             <div className="form__fields">
                                 <div className="form__field">
                                     <input
