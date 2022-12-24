@@ -13,10 +13,14 @@ const SignUp = () => {
     const { name, email, password } = formData;
 
     const onChangeInput = e => {
-        setFormData(prev => ({
-            ...prev,
+        setFormData(prevState => ({
+            ...prevState,
             [e.target.name]: e.target.value
         }))
+    }
+
+    const onSetShowPassword = () => {
+        setShowPassword(prevState => !prevState);
     }
 
     return (
@@ -38,6 +42,7 @@ const SignUp = () => {
                                         className="form__field-input name-input"
                                         name="name"
                                         value={name}
+                                        placeholder="Name"
                                         onChange={onChangeInput}
                                     />
                                 </div>
@@ -47,18 +52,24 @@ const SignUp = () => {
                                         className="form__field-input email-input"
                                         name="email"
                                         value={email}
+                                        placeholder="Email"
                                         onChange={onChangeInput}
                                     />
                                 </div>
-                                <div className="form__field">
+                                <div className="form__field form__field--btn">
                                     <input
                                         type={showPassword ? 'text' : 'password'}
                                         className="form__field-input password-input"
                                         name="password"
                                         value={password}
+                                        placeholder="Password"
                                         onChange={onChangeInput}
                                     />
-                                    <button type="button" className="form__field-button password-button">
+                                    <button
+                                        type="button"
+                                        className={`form__field-button password-button${showPassword ? " active" : ""}`}
+                                        onClick={onSetShowPassword}
+                                    >
                                         <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <g>
                                                 <path d="M12 7C8.36364 7 5.25818 9.26182 4 12.4545C5.25818 15.6473 8.36364 17.9091 12 17.9091C15.6364 17.9091 18.7418 15.6473 20 12.4545C18.7418 9.26182 15.6364 7 12 7ZM12 16.0909C9.99273 16.0909 8.36364 14.4618 8.36364 12.4545C8.36364 10.4473 9.99273 8.81818 12 8.81818C14.0073 8.81818 15.6364 10.4473 15.6364 12.4545C15.6364 14.4618 14.0073 16.0909 12 16.0909ZM12 10.2727C10.7927 10.2727 9.81818 11.2473 9.81818 12.4545C9.81818 13.6618 10.7927 14.6364 12 14.6364C13.2073 14.6364 14.1818 13.6618 14.1818 12.4545C14.1818 11.2473 13.2073 10.2727 12 10.2727Z" />
@@ -68,12 +79,12 @@ const SignUp = () => {
                                 </div>
                             </div>
                             <div className="form__submit">
-                                <button type="submit" className="form__submit-btn">Create account</button>
+                                <button type="submit" className="form__submit-btn button button--accent">Create account</button>
                             </div>
                         </form>
                     </div>
                     <footer className="auth-page__footer">
-                        <Link to="/sign-in" className="auth-page__button shadow-btn">Already have an account? Log in!</Link>
+                        <Link to="/sign-in" className="auth-page__button button">Already have an account? Log in!</Link>
                     </footer>
                 </div>
             </div>
