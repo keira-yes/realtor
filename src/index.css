@@ -262,6 +262,35 @@ h6 {
     gap: 12px;
 }
 
+.form__field {
+    position: relative;
+}
+
+.form__field::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.form__field--name::before {
+    background-image: url(assets/img/user.svg);
+}
+
+.form__field--email::before {
+    background-image: url(assets/img/envelope.svg);
+}
+
+.form__field--password::before {
+    background-image: url(assets/img/lock.svg);
+}
+
 .form__field--btn {
     position: relative;
 }
@@ -277,27 +306,12 @@ h6 {
     border-radius: 4px;
     box-shadow: inset 4px 4px 8px rgba(190, 205, 226, 0.5), inset -5px -5px 30px #FFFFFF;
     background-color: #F2F3F7;
-    background-repeat: no-repeat;
-    background-position: 20px center;
-    background-size: 24px auto;
     font-size: 16px;
     line-height: 1;
 }
 
 .form__field-input::placeholder {
     color: #8C94A0;
-}
-
-.name-input {
-    background-image: url(assets/img/user.svg);
-}
-
-.email-input {
-    background-image: url(assets/img/envelope.svg);
-}
-
-.password-input {
-    background-image: url(assets/img/lock.svg);
 }
 
 .form__field-button {

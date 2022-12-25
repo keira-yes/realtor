@@ -61,30 +61,30 @@ const SignUp = () => {
                     <div className="auth-page__form">
                         <form className="form" name="sign-up" onSubmit={onCreateUser}>
                             <div className="form__fields">
-                                <div className="form__field">
+                                <div className="form__field form__field--name">
                                     <input
                                         type="text"
-                                        className="form__field-input name-input"
+                                        className="form__field-input"
                                         name="name"
                                         value={name}
                                         placeholder="Name"
                                         onChange={onChangeInput}
                                     />
                                 </div>
-                                <div className="form__field">
+                                <div className="form__field form__field--email">
                                     <input
                                         type="email"
-                                        className="form__field-input email-input"
+                                        className="form__field-input"
                                         name="email"
                                         value={email}
                                         placeholder="Email"
                                         onChange={onChangeInput}
                                     />
                                 </div>
-                                <div className="form__field form__field--btn">
+                                <div className="form__field form__field--password form__field--btn">
                                     <input
                                         type={showPassword ? 'text' : 'password'}
-                                        className="form__field-input password-input"
+                                        className="form__field-input"
                                         name="password"
                                         value={password}
                                         placeholder="Password"
