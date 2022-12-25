@@ -8,7 +8,7 @@ const Profile = () => {
 
     useEffect(() => {
         setUser(auth.currentUser);
-    }, []);
+    }, [auth.currentUser]);
 
     return (
         <div>
