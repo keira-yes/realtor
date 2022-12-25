@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { toast } from 'react-toastify';
 import logo from "../assets/img/logo.svg";
 
 const SignIn = () => {
@@ -33,7 +34,7 @@ const SignIn = () => {
             const user = userCredential.user;
             if (user) navigate("/");
         } catch(error) {
-            console.log(error)
+            toast.error("Wrong Login or Password");
         }
     }
 

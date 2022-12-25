@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Apartments from "./pages/Apartments";
 import HotOffers from "./pages/HotOffers";
 import Profile from "./pages/Profile";
@@ -23,6 +25,7 @@ const App = () => {
                 </Routes>
                 <Navbar />
             </Router>
+            <ToastContainer />
         </>
     );
 }

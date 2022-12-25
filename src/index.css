@@ -243,6 +243,17 @@ h6 {
     color: #EDF0F4;
 }
 
+/* Toastify *******************************************************************************/
+
+#root .Toastify__toast-theme--light {
+    box-shadow: 6px 6px 16px #becde2, -6px -6px 16px #ffffff;
+    background-color: #F2F3F7;
+    font-family: inherit;
+    font-weight: 600;
+    line-height: 1.67;
+    color: #456078;
+}
+
 /* Form ***********************************************************************************/
 
 .form__fields {
