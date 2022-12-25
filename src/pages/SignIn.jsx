@@ -1,15 +1,18 @@
-import { useState } from 'react';
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import logo from "../assets/img/logo.svg";
 
 const SignIn = () => {
     const [formData, setFormData] = useState({
-        email: '',
-        password: ''
+        email: "",
+        password: ""
     });
     const [showPassword, setShowPassword] = useState(false);
 
     const { email, password } = formData;
+
+    const navigate = useNavigate();
 
     const onChangeInput = e => {
         setFormData(prevState => ({
@@ -20,6 +23,18 @@ const SignIn = () => {
 
     const onSetShowPassword = () => {
         setShowPassword(prevState => !prevState);
+    }
+
+    const onSignIn = async (e) => {
+        e.preventDefault();
+        try {
+            const auth = getAuth();
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+            if (user) navigate("/");
+        } catch(error) {
+            console.log(error)
+        }
     }
 
     return (
@@ -33,7 +48,7 @@ const SignIn = () => {
                         <h1 className="auth-page__title">Sign In</h1>
                     </header>
                     <div className="auth-page__form">
-                        <form className="form" name="sign-in">
+                        <form className="form" name="sign-in" onSubmit={onSignIn}>
                             <div className="form__fields">
                                 <div className="form__field">
                                     <input
