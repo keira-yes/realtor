@@ -243,6 +243,10 @@ h6 {
     color: #EDF0F4;
 }
 
+.page {
+    padding: 40px 0;
+}
+
 /* Toastify *******************************************************************************/
 
 #root .Toastify__toast-theme--light {
@@ -451,4 +455,16 @@ h6 {
 
 .auth-page__button {
     width: 100%;
+}
+
+/* Profile **********************************************************************/
+
+.profile__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile__title {
+    margin-bottom: 0;
 }

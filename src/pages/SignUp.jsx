@@ -44,7 +44,7 @@ const SignUp = () => {
             await setDoc(doc(db, "users", user.uid), data);
             navigate("/");
         } catch (error) {
-            toast.error("Wrong Login or Password");
+            toast.error("Something went wrong. Please, try again later.");
         }
     }
 
