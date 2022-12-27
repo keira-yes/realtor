@@ -13,17 +13,32 @@ const Profile = () => {
     });
     const [edit, setEdit] = useState(false);
 
-   const { name, email } = user;
+    const [formData, setFormData] = useState({
+        name: "",
+        email: ""
+    });
 
-   const navigate = useNavigate();
+    const { name, email } = user;
 
-   const onLogout = e => {
-       e.preventDefault();
-       auth.signOut();
-       navigate("/");
-   }
+    const navigate = useNavigate();
 
-    console.log(auth.currentUser)
+    const onLogout = e => {
+        e.preventDefault();
+        auth.signOut();
+        navigate("/");
+    }
+
+    const onEdit = e => {
+        e.preventDefault();
+        setEdit(prevState => !prevState);
+    }
+
+    const onChangeInput = e => {
+        setFormData(prevState => ({
+            ...prevState,
+            [e.target.name]: e.target.value
+        }))
+    }
 
     return (
         <div className="profile page">
@@ -38,6 +53,41 @@ const Profile = () => {
                         Logout
                     </button>
                 </header>
+                <main className="profile__main">
+                    <div className="profile__info">
+                        <div className="profile__info-form">
+                            <form className="form" name="profile">
+                                <div className="form__fields">
+                                    <div className={`form__field form__field--name${!edit ? " edited" : ""}`}>
+                                        <input
+                                            type="text"
+                                            className="form__field-input"
+                                            name="name"
+                                            value={name}
+                                            placeholder="Name"
+                                            disabled={!edit}
+                                            onChange={onChangeInput}
+                                        />
+                                    </div>
+                                    <div className={`form__field form__field--email${!edit ? " edited" : ""}`}>
+                                        <input
+                                            type="email"
+                                            className="form__field-input"
+                                            name="email"
+                                            value={email}
+                                            placeholder="Email"
+                                            disabled={!edit}
+                                            onChange={onChangeInput}
+                                        />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <button type="button" className="profile__info-edit" onClick={onEdit}>
+                            {edit ? "Save" : "Edit"}
+                        </button>
+                    </div>
+                </main>
             </div>
         </div>
     );

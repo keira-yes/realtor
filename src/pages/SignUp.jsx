@@ -58,7 +58,7 @@ const SignUp = () => {
                         </Link>
                         <h1 className="auth-page__title">Sign Up</h1>
                     </header>
-                    <div className="auth-page__form">
+                    <main className="auth-page__form">
                         <form className="form" name="sign-up" onSubmit={onCreateUser}>
                             <div className="form__fields">
                                 <div className="form__field form__field--name">
@@ -107,7 +107,7 @@ const SignUp = () => {
                                 <button type="submit" className="form__submit-btn button button--accent">Create account</button>
                             </div>
                         </form>
-                    </div>
+                    </main>
                     <footer className="auth-page__footer">
                         <Link to="/sign-in" className="auth-page__button button">Already have an account? Log in!</Link>
                     </footer>

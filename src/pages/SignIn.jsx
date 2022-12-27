@@ -48,7 +48,7 @@ const SignIn = () => {
                         </Link>
                         <h1 className="auth-page__title">Sign In</h1>
                     </header>
-                    <div className="auth-page__form">
+                    <main className="auth-page__form">
                         <form className="form" name="sign-in" onSubmit={onSignIn}>
                             <div className="form__fields">
                                 <div className="form__field form__field--email">
@@ -88,7 +88,7 @@ const SignIn = () => {
                             </div>
                         </form>
                         <Link to="/forgot-password" className="auth-page__link">Forgot your password?</Link>
-                    </div>
+                    </main>
                     <footer className="auth-page__footer">
                         <Link to="/sign-up" className="auth-page__button button">Don't have an account yet? Sign up!</Link>
                     </footer>
