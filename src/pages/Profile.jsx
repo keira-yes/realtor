@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getAuth, updateProfile } from "firebase/auth";
-import { updateDoc } from "firebase/firestore";
+import { updateDoc, doc } from "firebase/firestore";
+import { toast } from 'react-toastify';
 import { db } from "../firebase.config";
 
 const Profile = () => {
@@ -13,11 +14,6 @@ const Profile = () => {
     });
     const [edit, setEdit] = useState(false);
 
-    const [formData, setFormData] = useState({
-        name: "",
-        email: ""
-    });
-
     const { name, email } = user;
 
     const navigate = useNavigate();
@@ -28,16 +24,33 @@ const Profile = () => {
         navigate("/");
     }
 
-    const onEdit = e => {
-        e.preventDefault();
-        setEdit(prevState => !prevState);
-    }
-
     const onChangeInput = e => {
-        setFormData(prevState => ({
+        setUser(prevState => ({
             ...prevState,
             [e.target.name]: e.target.value
         }))
+    }
+
+    const onChangeUser = async () => {
+        try {
+            if (auth.currentUser.displayName !== name) {
+                await updateProfile(auth.currentUser, {
+                    displayName: name
+                });
+                const userRef = doc(db, 'users', auth.currentUser.uid);
+                await updateDoc(userRef, {
+                    name
+                });
+            }
+        } catch (error) {
+            toast.error("Something went wrong");
+        }
+    }
+
+    const onEdit = e => {
+        e.preventDefault();
+        edit && onChangeUser();
+        setEdit(prevState => !prevState);
     }
 
     return (
@@ -69,14 +82,14 @@ const Profile = () => {
                                             onChange={onChangeInput}
                                         />
                                     </div>
-                                    <div className={`form__field form__field--email${!edit ? " edited" : ""}`}>
+                                    <div className="form__field form__field--email edited">
                                         <input
                                             type="email"
                                             className="form__field-input"
                                             name="email"
                                             value={email}
                                             placeholder="Email"
-                                            disabled={!edit}
+                                            disabled
                                             onChange={onChangeInput}
                                         />
                                     </div>
