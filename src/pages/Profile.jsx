@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAuth, updateProfile } from "firebase/auth";
+import { getAuth, updateProfile, updateEmail } from "firebase/auth";
 import { updateDoc, doc } from "firebase/firestore";
 import { toast } from 'react-toastify';
 import { db } from "../firebase.config";
@@ -33,14 +33,17 @@ const Profile = () => {
 
     const onChangeUser = async () => {
         try {
-            if (auth.currentUser.displayName !== name) {
+            if (auth.currentUser.displayName !== name || auth.currentUser.email !== email) {
                 await updateProfile(auth.currentUser, {
                     displayName: name
                 });
+                await updateEmail(auth.currentUser, email);
                 const userRef = doc(db, 'users', auth.currentUser.uid);
                 await updateDoc(userRef, {
-                    name
+                    name,
+                    email
                 });
+                toast.success("Your personal data was successfully updated!");
             }
         } catch (error) {
             toast.error("Something went wrong");
@@ -82,14 +85,14 @@ const Profile = () => {
                                             onChange={onChangeInput}
                                         />
                                     </div>
-                                    <div className="form__field form__field--email edited">
+                                    <div className={`form__field form__field--email${!edit ? " edited" : ""}`}>
                                         <input
                                             type="email"
                                             className="form__field-input"
                                             name="email"
                                             value={email}
                                             placeholder="Email"
-                                            disabled
+                                            disabled={!edit}
                                             onChange={onChangeInput}
                                         />
                                     </div>
