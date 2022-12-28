@@ -21,7 +21,7 @@ const Profile = () => {
     const onLogout = e => {
         e.preventDefault();
         auth.signOut();
-        navigate("/");
+        navigate("/sign-in");
     }
 
     const onChangeInput = e => {
