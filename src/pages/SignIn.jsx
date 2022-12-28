@@ -32,7 +32,7 @@ const SignIn = () => {
             const auth = getAuth();
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
-            if (user) navigate("/");
+            if (user) navigate("/profile");
         } catch(error) {
             toast.error("Wrong Login or Password");
         }

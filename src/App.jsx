@@ -9,6 +9,7 @@ import SignUp from "./pages/SignUp";
 import ForgotPassword from "./pages/ForgotPassword";
 import NotFound from "./pages/NotFound";
 import Navbar from "./components/Navbar";
+import ProfileRoute from "./components/ProfileRoute";
 
 const App = () => {
     return (
@@ -17,7 +18,9 @@ const App = () => {
                 <Routes>
                     <Route path='/' element={<Apartments />} />
                     <Route path='/hot-offers' element={<HotOffers />} />
-                    <Route path='/profile' element={<Profile />} />
+                    <Route path='/profile' element={<ProfileRoute />}>
+                        <Route path='/profile' element={<Profile />} />
+                    </Route>
                     <Route path='/sign-in' element={<SignIn />} />
                     <Route path='/sign-up' element={<SignUp />} />
                     <Route path='/forgot-password' element={<ForgotPassword />} />
