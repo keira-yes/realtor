@@ -6,7 +6,7 @@ import HotOffers from "./pages/HotOffers";
 import Profile from "./pages/Profile";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
 import Navbar from "./components/Navbar";
 import ProfileRoute from "./components/ProfileRoute";
@@ -23,7 +23,7 @@ const App = () => {
                     </Route>
                     <Route path='/sign-in' element={<SignIn />} />
                     <Route path='/sign-up' element={<SignUp />} />
-                    <Route path='/forgot-password' element={<ForgotPassword />} />
+                    <Route path='/forgot-password' element={<ResetPassword />} />
                     <Route path='*' element={<NotFound />} />
                 </Routes>
                 <Navbar />
