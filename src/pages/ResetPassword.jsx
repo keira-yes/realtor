@@ -33,8 +33,9 @@ const ResetPassword = () => {
                         </Link>
                         <h1 className="auth-page__title">Reset password</h1>
                     </header>
-                    <main className="auth-page__form">
-                        <form className="form" name="forgot-password" onSubmit={onSubmit}>
+                    <main className="auth-page__main">
+                        <div className="auth-page__form">
+                            <form className="form" name="forgot-password" onSubmit={onSubmit}>
                             <div className="form__fields">
                                 <div className="form__field form__field--email">
                                     <input
@@ -51,6 +52,7 @@ const ResetPassword = () => {
                                 <button type="submit" className="form__submit-btn button button--accent">Reset</button>
                             </div>
                         </form>
+                        </div>
                     </main>
                     <footer className="auth-page__footer">
                         <Link to="/sign-in" className="auth-page__button button">Remember password? Log in!</Link>

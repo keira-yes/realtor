@@ -4,6 +4,7 @@ import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { toast } from 'react-toastify';
 import { db } from "../firebase.config";
+import GoogleAuth from "../components/GoogleAuth";
 import logo from "../assets/img/logo.svg";
 
 const SignUp = () => {
@@ -58,8 +59,9 @@ const SignUp = () => {
                         </Link>
                         <h1 className="auth-page__title">Sign Up</h1>
                     </header>
-                    <main className="auth-page__form">
-                        <form className="form" name="sign-up" onSubmit={onCreateUser}>
+                    <main className="auth-page__main">
+                        <div className="auth-page__form">
+                            <form className="form" name="sign-up" onSubmit={onCreateUser}>
                             <div className="form__fields">
                                 <div className="form__field form__field--name">
                                     <input
@@ -107,6 +109,10 @@ const SignUp = () => {
                                 <button type="submit" className="form__submit-btn button button--accent">Create account</button>
                             </div>
                         </form>
+                        </div>
+                        <div className="auth-page__links">
+                            <div className="auth-page__google"><GoogleAuth /></div>
+                        </div>
                     </main>
                     <footer className="auth-page__footer">
                         <Link to="/sign-in" className="auth-page__button button">Already have an account? Log in!</Link>
