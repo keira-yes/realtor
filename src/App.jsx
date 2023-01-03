@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Apartments from "./pages/Apartments";
+import Home from "./pages/Home";
 import Category from "./pages/Category";
 import HotOffers from "./pages/HotOffers";
 import Profile from "./pages/Profile";
@@ -17,7 +17,7 @@ const App = () => {
         <>
             <Router>
                 <Routes>
-                    <Route path='/' element={<Apartments />} />
+                    <Route path='/' element={<Home />} />
                     <Route path='/category/:categoryName' element={<Category />} />
                     <Route path='/hot-offers' element={<HotOffers />} />
                     <Route path='/profile' element={<ProfileRoute />}>

@@ -57,10 +57,10 @@ const Profile = () => {
     }
 
     return (
-        <div className="profile page">
+        <div className="profile">
             <div className="profile__container container">
                 <header className="profile__header">
-                    <h1 className="profile__title page-title">Profile</h1>
+                    <h1 className="profile__title">Profile</h1>
                     <button
                         type="button"
                         className="profile__logout button button--sm button--accent"
