@@ -48,7 +48,7 @@ const Category = () => {
             }
         }
         fetchLists();
-    }, []);
+    }, [params.categoryName]);
 
     return (
         <div className="category">
