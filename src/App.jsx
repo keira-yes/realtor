@@ -3,6 +3,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Home from "./pages/Home";
 import Category from "./pages/Category";
+import Apartment from "./pages/Apartment";
 import HotOffers from "./pages/HotOffers";
 import Profile from "./pages/Profile";
 import SignIn from "./pages/SignIn";
@@ -19,6 +20,7 @@ const App = () => {
                 <Routes>
                     <Route path='/' element={<Home />} />
                     <Route path='/category/:categoryName' element={<Category />} />
+                    <Route path='/category/:categoryName/:id' element={<Apartment />} />
                     <Route path='/hot-offers' element={<HotOffers />} />
                     <Route path='/profile' element={<ProfileRoute />}>
                         <Route path='/profile' element={<Profile />} />

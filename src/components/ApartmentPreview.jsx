@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 
-const ApartmentPreview = ({ data }) => {
-    const { title, images, city, postalCode, bedrooms, floor, houseroom, discount, price, discountPrice } = data;
+const ApartmentPreview = ({ id, data }) => {
+    const { type, title, images, city, postalCode, bedrooms, floor, houseroom, discount, price, discountPrice } = data;
 
     return (
-        <Link to="/" className="card">
+        <Link to={`/category/${type}/${id}`} className="card">
             <img className="card__img" src={images[0]} alt={title} />
             <div className="card__holder">
                 <h3 className="card__title">{title}</h3>

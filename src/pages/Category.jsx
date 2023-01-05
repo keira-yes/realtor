@@ -60,7 +60,7 @@ const Category = () => {
                         <div>No items</div> :
                         <div className="category__list">
                             {lists.map(item => (
-                                <ApartmentPreview key={item.id} data={item.data} />
+                                <ApartmentPreview key={item.id} id={item.id} data={item.data} />
                             ))}
                         </div>
                     }
