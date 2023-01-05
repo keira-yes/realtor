@@ -12,6 +12,7 @@ import {
 import { toast } from "react-toastify";
 import { db } from "../firebase.config";
 import Loader from "../components/Loader";
+import ApartmentPreview from "../components/ApartmentPreview";
 
 const Category = () => {
     const [lists, setLists] = useState([]);
@@ -41,7 +42,6 @@ const Category = () => {
 
                 setLists(lists);
                 setLoading(false);
-                console.log(lists)
 
             } catch (error) {
                 toast.error("Something went wrong...")
@@ -59,7 +59,9 @@ const Category = () => {
                     {lists.length === 0 ?
                         <div>No items</div> :
                         <div className="category__list">
-                            {lists.map(item => <h3 key={item.id}>{item.data.title}</h3>)}
+                            {lists.map(item => (
+                                <ApartmentPreview key={item.id} data={item.data} />
+                            ))}
                         </div>
                     }
                 </div>

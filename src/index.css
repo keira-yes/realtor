@@ -150,6 +150,10 @@ a[href*="tel:"] {
     word-wrap: break-word;
 }
 
+strong {
+    font-weight: 600;
+}
+
 input,
 textarea,
 select,
@@ -615,6 +619,7 @@ h6 {
     display: flex;
     flex-direction: column;
     gap: 30px;
+    margin-bottom: 70px;
 }
 
 .home__category {
@@ -643,4 +648,87 @@ h6 {
 .home__category-title {
     margin-bottom: 0;
     font-size: 28px;
+}
+
+/* Category ****************************************************************************/
+
+.category {
+    padding-top: 40px;
+}
+
+/* Card ********************************************************************************/
+
+.card {
+    display: block;
+    border-radius: 40px;
+    box-shadow: 6px 6px 16px #BECDE2, -6px -6px 16px #FFFFFF;
+    background-color: #F2F3F7;
+    color: inherit;
+    overflow: hidden;
+}
+
+.card__img {
+    width: 100%;
+    aspect-ratio: 1.8846;
+    object-fit: cover;
+    object-position: center;
+}
+
+.card__holder {
+    padding: 30px 20px;
+}
+
+.card__title {
+    margin-bottom: 15px;
+    font-size: 22px;
+}
+
+.card__city {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    font-size: 15px;
+}
+
+.card__city-icon {
+    margin-right: 5px;
+    fill: #4070F4;
+}
+
+.card__price {
+    display: flex;
+    align-items: center;
+    font-size: 22px;
+    color: #4070F4;
+}
+
+.card__price-discount {
+    margin-left: 10px;
+}
+
+.card__price-holder.sale {
+    text-decoration: line-through;
+    font-size: 16px;
+    font-weight: 400;
+    color: #8C94A0;
+}
+
+.card__options {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 15px 0 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.card__option {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.card__option-icon {
+    fill: #4070F4;
 }

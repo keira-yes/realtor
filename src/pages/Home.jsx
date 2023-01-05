@@ -36,6 +36,12 @@ const Home = () => {
                         </div>
                     </Link>
                 </div>
+                <div className="home__description">
+                    <h2 className="home__description-totle">About Realtor</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores, veritatis!</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aperiam enim esse eveniet exercitationem, impedit incidunt itaque laborum maiores molestiae odio repellat temporibus velit, voluptate voluptatem. Aperiam asperiores dicta dolorem molestias nisi perferendis quia sit.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum doloremque et in laudantium, libero natus quia sunt voluptate.</p>
+                </div>
             </div>
         </div>
     );
