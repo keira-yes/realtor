@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { getAuth, updateProfile, updateEmail } from "firebase/auth";
 import { updateDoc, doc } from "firebase/firestore";
 import { toast } from 'react-toastify';
@@ -102,6 +102,9 @@ const Profile = () => {
                         <button type="button" className="profile__info-edit" onClick={onEdit}>
                             {edit ? "Save" : "Edit"}
                         </button>
+                    </div>
+                    <div className="profile__link">
+                        <Link to="/add-apartment" className="button button--accent">Add new apartment</Link>
                     </div>
                 </main>
             </div>

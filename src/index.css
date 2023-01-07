@@ -232,6 +232,7 @@ h6 {
     border-radius: 4px;
     box-shadow: 6px 6px 16px #BECDE2, -6px -6px 16px #FFFFFF;
     background-color: #F2F3F7;
+    text-align: center;
     font-size: 12px;
     font-weight: 600;
     line-height: 1.67;
@@ -593,6 +594,14 @@ h6 {
     font-weight: 600;
     line-height: 1.57;
     color: #4070F4;
+}
+
+.profile__link {
+    margin-top: 30px;
+}
+
+.profile__link .button {
+    display: block;
 }
 
 /* Home ***********************************************************************/
