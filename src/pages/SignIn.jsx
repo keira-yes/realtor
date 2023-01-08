@@ -53,7 +53,7 @@ const SignIn = () => {
                         <div className="auth-page__form">
                             <form className="form" name="sign-in" onSubmit={onSignIn}>
                                 <div className="form__fields">
-                                    <div className="form__field form__field--email">
+                                    <div className="form__field form__field--icon form__field--email">
                                         <input
                                             type="email"
                                             className="form__field-input"
@@ -63,7 +63,7 @@ const SignIn = () => {
                                             onChange={onChangeInput}
                                         />
                                     </div>
-                                    <div className="form__field form__field--password form__field--btn">
+                                    <div className="form__field form__field--icon form__field--password form__field--btn">
                                         <input
                                             type={showPassword ? 'text' : 'password'}
                                             className="form__field-input"

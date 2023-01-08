@@ -23,7 +23,7 @@ const SignUp = () => {
         setFormData(prevState => ({
             ...prevState,
             [e.target.name]: e.target.value
-        }))
+        }));
     }
 
     const onSetShowPassword = () => {
@@ -63,7 +63,7 @@ const SignUp = () => {
                         <div className="auth-page__form">
                             <form className="form" name="sign-up" onSubmit={onCreateUser}>
                             <div className="form__fields">
-                                <div className="form__field form__field--name">
+                                <div className="form__field form__field--icon form__field--name">
                                     <input
                                         type="text"
                                         className="form__field-input"
@@ -73,7 +73,7 @@ const SignUp = () => {
                                         onChange={onChangeInput}
                                     />
                                 </div>
-                                <div className="form__field form__field--email">
+                                <div className="form__field form__field--icon form__field--email">
                                     <input
                                         type="email"
                                         className="form__field-input"
@@ -83,7 +83,7 @@ const SignUp = () => {
                                         onChange={onChangeInput}
                                     />
                                 </div>
-                                <div className="form__field form__field--password form__field--btn">
+                                <div className="form__field form__field--icon form__field--password form__field--btn">
                                     <input
                                         type={showPassword ? 'text' : 'password'}
                                         className="form__field-input"

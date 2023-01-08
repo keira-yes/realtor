@@ -218,6 +218,20 @@ h6 {
     font-size: 16px;
 }
 
+.sr-only {
+    border: 0 !important;
+    clip: rect(1px, 1px, 1px, 1px) !important;
+    -webkit-clip-path: inset(50%) !important;
+    clip-path: inset(50%) !important;
+    height: 1px !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: absolute !important;
+    width: 1px !important;
+    white-space: nowrap !important;
+}
+
 .container {
     width: 100%;
     max-width: 1200px;
@@ -334,11 +348,17 @@ h6 {
     gap: 12px;
 }
 
-.form__field {
+.form__label {
+    margin-bottom: 20px;
+    text-align: left;
+    font-size: 18px;
+}
+
+.form__field--icon {
     position: relative;
 }
 
-.form__field::before {
+.form__field--icon::before {
     content: '';
     position: absolute;
     left: 20px;
@@ -349,10 +369,6 @@ h6 {
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-}
-
-.form__field.edited::before {
-    display: none;
 }
 
 .form__field.edited .form__field-input {
@@ -386,9 +402,13 @@ h6 {
     padding-right: 80px;
 }
 
+.form__field--radio {
+    margin: 20px 0;
+}
+
 .form__field-input {
     width: 100%;
-    padding: 19px 20px 19px 56px;
+    padding: 19px 20px;
     border: none;
     border-radius: 4px;
     box-shadow: inset 4px 4px 8px rgba(190, 205, 226, 0.5), inset -5px -5px 30px #FFFFFF;
@@ -399,6 +419,15 @@ h6 {
 
 .form__field-input::placeholder {
     color: #8C94A0;
+}
+
+textarea.form__field-input {
+    height: 150px;
+    line-height: 1.5;
+}
+
+.form__field--icon .form__field-input {
+    padding-left: 56px;
 }
 
 .form__field-button {
@@ -432,6 +461,52 @@ h6 {
     padding: 17px 30px;
     font-size: 16px;
     line-height: 1.5;
+}
+
+/* Radio Input */
+
+.radio {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.radio__item {
+    position: relative;
+}
+
+.radio__item-input:checked + .radio__item-label::after {
+    opacity: 1;
+}
+
+.radio__item-label {
+    position: relative;
+    padding-left: 40px;
+}
+
+.radio__item-label::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    box-shadow: 6px 6px 16px #BECDE2, -6px -6px 16px #FFFFFF;
+    background-color: #F2F3F7;
+}
+
+.radio__item-label::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 6px;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background-color: #4070F4;
+    opacity: 0;
+    transition: opacity .3s ease;
 }
 
 /* Navbar *********************************************************************************/

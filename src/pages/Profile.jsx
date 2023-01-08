@@ -74,7 +74,7 @@ const Profile = () => {
                         <div className="profile__info-form">
                             <form className="form" name="profile">
                                 <div className="form__fields">
-                                    <div className={`form__field form__field--name${!edit ? " edited" : ""}`}>
+                                    <div className={`form__field ${!edit ? " edited" : ""}`}>
                                         <input
                                             type="text"
                                             className="form__field-input"
@@ -85,7 +85,7 @@ const Profile = () => {
                                             onChange={onChangeInput}
                                         />
                                     </div>
-                                    <div className={`form__field form__field--email${!edit ? " edited" : ""}`}>
+                                    <div className={`form__field ${!edit ? " edited" : ""}`}>
                                         <input
                                             type="email"
                                             className="form__field-input"

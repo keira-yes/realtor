@@ -26,7 +26,7 @@ const HotOffers = () => {
                 const listsRef = collection(db, "lists");
                 const q = query(
                     listsRef,
-                    where("discount", "==", true),
+                    where("hotOffers", "==", true),
                     orderBy("timestamp", "desc"),
                     limit(10)
                 );

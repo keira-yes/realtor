@@ -37,7 +37,7 @@ const ResetPassword = () => {
                         <div className="auth-page__form">
                             <form className="form" name="forgot-password" onSubmit={onSubmit}>
                             <div className="form__fields">
-                                <div className="form__field form__field--email">
+                                <div className="form__field form__field--icon form__field--email">
                                     <input
                                         type="email"
                                         className="form__field-input"

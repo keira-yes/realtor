@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 const ApartmentPreview = ({ id, data }) => {
-    const { type, title, images, city, postalCode, bedrooms, floor, houseroom, discount, price, discountPrice } = data;
+    const { type, title, images, city, postalCode, bedrooms, floor, houseroom, price, discountPrice } = data;
 
     return (
         <Link to={`/category/${type}/${id}`} className="card">
@@ -16,7 +16,7 @@ const ApartmentPreview = ({ id, data }) => {
                     <strong className="card__city-title">{city}, {postalCode}</strong>
                 </div>
                 <div className="card__price">
-                    <strong className={`card__price-holder ${discount && "sale"}`}>${price}</strong>
+                    <strong className={`card__price-holder ${discountPrice && "sale"}`}>${price}</strong>
                     {discountPrice && <strong className="card__price-discount">${discountPrice}</strong>}
                 </div>
                 <ul className="card__options">
