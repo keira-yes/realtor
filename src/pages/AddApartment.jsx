@@ -54,17 +54,10 @@ const AddApartment = () => {
     const navigate = useNavigate();
 
     const onChangeInput = e => {
-        if (e.target.files) {
-            setFormData(prevState => ({
-                ...prevState,
-                [e.target.name]: e.target.files
-            }));
-        } else {
-            setFormData(prevState => ({
-                ...prevState,
-                [e.target.name]: e.target.value
-            }));
-        }
+        setFormData(prevState => ({
+            ...prevState,
+            [e.target.name]: e.target.files ? e.target.files : e.target.value
+        }));
     }
 
     const onChangeBoolean = e => {
