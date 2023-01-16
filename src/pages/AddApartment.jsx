@@ -70,7 +70,7 @@ const AddApartment = () => {
 
     const handleCoordinates = async () => {
         const coordinates = {};
-        let location;
+        let location = `${address}, ${postalCode} ${city}`;
 
         if (geocodingEnabled) {
             const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.GOOGLE_MAPS_API_KEY}`);
@@ -86,7 +86,6 @@ const AddApartment = () => {
         } else {
             coordinates.lat = lat;
             coordinates.lng = lng;
-            location = `${address}, ${postalCode} ${city}`;
         }
     }
 
