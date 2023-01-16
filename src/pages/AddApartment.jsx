@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { toast } from "react-toastify";
 import Loader from "../components/Loader";
 
 const AddApartment = () => {
-    const [locationEnabled, setLocationEnabled] = useState(true);
+    const [geocodingEnabled, setGeocodingEnabled] = useState(true);
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         title: "",
@@ -67,9 +68,41 @@ const AddApartment = () => {
         }));
     }
 
+    const handleCoordinates = async () => {
+        const coordinates = {};
+        let location;
+
+        if (geocodingEnabled) {
+            const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.GOOGLE_MAPS_API_KEY}`);
+            const data = await response.json();
+            coordinates.lat = data.results[0]?.geometry.location.lat ?? 0;
+            coordinates.lng = data.results[0]?.geometry.location.lng ?? 0;
+            location = data.results.length > 0 ? data.results[0]?.formatted_address : undefined;
+
+            if (!location) {
+                toast.error('Please check address, city or postal code');
+                return;
+            }
+        } else {
+            coordinates.lat = lat;
+            coordinates.lng = lng;
+            location = `${address}, ${postalCode} ${city}`;
+        }
+    }
+
     const onSubmit = e => {
         e.preventDefault();
-        console.log(formData);
+
+        setLoading(true);
+
+        if (discountPrice >= price) {
+            setLoading(false);
+            toast.error('Discount price has to be lower than regular price!');
+            return;
+        }
+
+        handleCoordinates()
+            .then(() => setLoading(false));
     }
 
     useEffect(() => {
@@ -173,9 +206,9 @@ const AddApartment = () => {
                                         onChange={onChangeInput}
                                     />
                                 </div>
-                                {!locationEnabled && <>
+                                {!geocodingEnabled && <>
                                     <div className="form__field">
-                                        <label htmlFor="latitude" className="form__label">Latitude</label>
+                                        <label htmlFor="latitude" className="form__label">Latitude*</label>
                                         <input
                                             type="number"
                                             id="latitude"
@@ -183,11 +216,12 @@ const AddApartment = () => {
                                             name="latitude"
                                             value={lat}
                                             placeholder="60.437126"
+                                            required
                                             onChange={onChangeInput}
                                         />
                                     </div>
                                     <div className="form__field">
-                                    <label htmlFor="longitude" className="form__label">Longitude</label>
+                                    <label htmlFor="longitude" className="form__label">Longitude*</label>
                                         <input
                                             type="number"
                                             id="longitude"
@@ -195,6 +229,7 @@ const AddApartment = () => {
                                             name="longitude"
                                             value={lng}
                                             placeholder="11.050333"
+                                            required
                                             onChange={onChangeInput}
                                         />
                                     </div>
@@ -405,7 +440,7 @@ const AddApartment = () => {
                                     />
                                 </div>
                                 <div className="form__field">
-                                    <label htmlFor="images" className="form__label">Images</label>
+                                    <label htmlFor="images" className="form__label">Images*</label>
                                     <input
                                         type="file"
                                         id="images"
