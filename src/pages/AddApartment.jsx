@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
 import { db } from "../firebase.config";
@@ -16,6 +17,7 @@ const AddApartment = () => {
         address: "",
         city: "",
         postalCode: "",
+        formattedAddress: "",
         lat: "",
         lng: "",
         hotOffers: false,
@@ -38,6 +40,7 @@ const AddApartment = () => {
         address,
         city,
         postalCode,
+        formattedAddress,
         lat,
         lng,
         hotOffers,
@@ -71,58 +74,6 @@ const AddApartment = () => {
         }));
     }
 
-    const saveImage = async (file) => {
-        return new Promise((resolve, reject) => {
-            const storage = getStorage();
-            const fileName = `${auth.currentUser.uid}-${file.name}-${uuidv4()}`;
-            const storageRef = ref(storage, 'images/' + fileName);
-            const uploadTask = uploadBytesResumable(storageRef, file);
-
-            uploadTask.on('state_changed',
-                (snapshot) => {
-                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    console.log('Upload is ' + progress + '% done');
-                    switch (snapshot.state) {
-                        case 'paused':
-                            console.log('Upload is paused');
-                            break;
-                        case 'running':
-                            console.log('Upload is running');
-                            break;
-                    }
-                },
-                (error) => {
-                    reject(error);
-                },
-                () => {
-                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                        resolve(downloadURL);
-                    });
-                }
-            );
-        });
-    }
-
-    const handleCoordinates = async () => {
-        const coordinates = {};
-        let location = `${address}, ${postalCode} ${city}`;
-
-        if (geocodingEnabled) {
-            const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.GOOGLE_MAPS_API_KEY}`);
-            const data = await response.json();
-            coordinates.lat = data.results[0]?.geometry.location.lat ?? 0;
-            coordinates.lng = data.results[0]?.geometry.location.lng ?? 0;
-            location = data.results.length > 0 ? data.results[0]?.formatted_address : undefined;
-
-            if (!location) {
-                toast.error('Please check address, city or postal code');
-            }
-        } else {
-            coordinates.lat = lat;
-            coordinates.lng = lng;
-        }
-    }
-
     const onSubmit = async (e) => {
         e.preventDefault();
 
@@ -134,17 +85,80 @@ const AddApartment = () => {
             return;
         }
 
-        const imgUrls = await Promise.all(
+        // Handle images
+
+        const saveImage = async (file) => {
+            return new Promise((resolve, reject) => {
+                const storage = getStorage();
+                const fileName = `${auth.currentUser.uid}-${file.name}-${uuidv4()}`;
+                const storageRef = ref(storage, 'images/' + fileName);
+                const uploadTask = uploadBytesResumable(storageRef, file);
+
+                uploadTask.on('state_changed',
+                    (snapshot) => {
+                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        console.log('Upload is ' + progress + '% done');
+                        switch (snapshot.state) {
+                            case 'paused':
+                                console.log('Upload is paused');
+                                break;
+                            case 'running':
+                                console.log('Upload is running');
+                                break;
+                        }
+                    },
+                    (error) => {
+                        reject(error);
+                    },
+                    () => {
+                        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                            resolve(downloadURL);
+                        });
+                    }
+                );
+            });
+        }
+
+        const imagesUrls = await Promise.all(
             [...images].map(image => saveImage(image))
         ).catch(() => {
             setLoading(false);
             toast.error("Images loading is wrong, try again later");
         });
 
-        console.log(imgUrls);
+        // Handle coordinates
 
-        handleCoordinates()
-            .then(() => setLoading(false));
+        const coordinates = {};
+        let location = `${address}, ${postalCode} ${city}`;
+
+        if (geocodingEnabled) {
+            const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`);
+            const data = await response.json();
+            coordinates.lat = data.results[0]?.geometry.location.lat ?? 0;
+            coordinates.lng = data.results[0]?.geometry.location.lng ?? 0;
+            location = data.results.length > 0 ? data.results[0]?.formatted_address : undefined;
+
+            if (!location) {
+                setLoading(false);
+                toast.error('Please check address, city or postal code');
+            }
+
+        } else {
+            coordinates.lat = lat;
+            coordinates.lng = lng;
+        }
+
+        const formDataUpdated = {
+            ...formData,
+            images: imagesUrls,
+            coordinates,
+            formattedAddress: location,
+            timestamp: serverTimestamp()
+        }
+
+        console.log(formDataUpdated)
+
+        setLoading(false);
     }
 
     useEffect(() => {
