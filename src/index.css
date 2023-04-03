@@ -785,6 +785,12 @@ input[type="file"]::file-selector-button {
     padding-top: 40px;
 }
 
+.category__list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
 /* Card ********************************************************************************/
 
 .card {

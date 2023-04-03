@@ -17,7 +17,6 @@ const AddApartment = () => {
         address: "",
         city: "",
         postalCode: "",
-        formattedAddress: "",
         lat: "",
         lng: "",
         hotOffers: false,
@@ -40,7 +39,6 @@ const AddApartment = () => {
         address,
         city,
         postalCode,
-        formattedAddress,
         lat,
         lng,
         hotOffers,
@@ -136,7 +134,6 @@ const AddApartment = () => {
             const data = await response.json();
             coordinates.lat = data.results[0]?.geometry.location.lat ?? 0;
             coordinates.lng = data.results[0]?.geometry.location.lng ?? 0;
-            location = data.results.length > 0 ? data.results[0]?.formatted_address : undefined;
 
             if (!location) {
                 setLoading(false);
@@ -148,15 +145,20 @@ const AddApartment = () => {
             coordinates.lng = lng;
         }
 
+        // Save form data to db
+
         const formDataUpdated = {
             ...formData,
             images: imagesUrls,
             coordinates,
-            formattedAddress: location,
             timestamp: serverTimestamp()
         }
 
         console.log(formDataUpdated)
+
+        const docRef = await addDoc(collection(db, "lists"), formDataUpdated);
+        toast.success('Apartment is added!');
+        navigate(`/category/${formDataUpdated.type}/${docRef.id}`);
 
         setLoading(false);
     }
@@ -258,6 +260,7 @@ const AddApartment = () => {
                                         name="postalCode"
                                         value={postalCode}
                                         placeholder="Enter Code"
+                                        min="1"
                                         required
                                         onChange={onChangeInput}
                                     />
@@ -272,6 +275,7 @@ const AddApartment = () => {
                                             name="latitude"
                                             value={lat}
                                             placeholder="60.437126"
+                                            min="1"
                                             required
                                             onChange={onChangeInput}
                                         />
@@ -285,6 +289,7 @@ const AddApartment = () => {
                                             name="longitude"
                                             value={lng}
                                             placeholder="11.050333"
+                                            min="1"
                                             required
                                             onChange={onChangeInput}
                                         />
@@ -368,6 +373,7 @@ const AddApartment = () => {
                                         name="floor"
                                         value={floor}
                                         placeholder="Floor number"
+                                        min="1"
                                         onChange={onChangeInput}
                                     />
                                 </div>
