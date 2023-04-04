@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
-import banner from "../assets/img/banner_desktop.jpg";
-import banner_desktop from "../assets/img/banner_desktop.jpg";
+import banner from "../assets/img/banner.jpg";
 import rent from "../assets/img/rent.jpg";
 import sale from "../assets/img/sale.jpg";
 import offers from "../assets/img/offers.jpg";
@@ -9,10 +8,9 @@ const Home = () => {
     return (
         <div className="home">
             <div className="home__banner">
-                <picture className="home__banner-img">
-                    <source media="(min-width: 641px)" srcSet={banner_desktop} />
+                <figure className="home__banner-img">
                     <img src={banner} alt="Housing" />
-                </picture>
+                </figure>
                 <h1 className="home__banner-title">Real estate from market experts</h1>
             </div>
             <div className="home__container container">
