@@ -4,6 +4,7 @@ import { getDoc, doc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { db } from "../firebase.config";
 import Loader from "../components/Loader";
+import { toast } from "react-toastify";
 
 const Apartment = () => {
     const [apartment, setApartment] = useState(null);
@@ -28,13 +29,15 @@ const Apartment = () => {
             const docSnap = await getDoc(docRef);
 
             if (docSnap.exists()) {
-                console.log(docSnap.data());
                 setApartment(docSnap.data());
-                setLoading(false);
+            } else {
+                toast.error("Could not get the apartment");
             }
+
+            setLoading(false);
         }
         fetchApartment();
-    }, [navigate, params.apartmentId]);
+    }, [params.apartmentId]);
 
     if (loading) return <Loader />
 
