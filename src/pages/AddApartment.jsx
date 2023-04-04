@@ -166,7 +166,7 @@ const AddApartment = () => {
     useEffect(() => {
         onAuthStateChanged(auth, user => {
             if (user) {
-                setFormData({...formData, userId: user.uid});
+                setFormData({...formData, userID: user.uid});
             } else {
                 navigate("/sign-in");
             }

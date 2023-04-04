@@ -14,8 +14,6 @@ const Apartment = () => {
     const params = useParams();
     const auth = getAuth();
 
-    console.log(auth)
-
     const handleShare = () => {
         navigator.clipboard.writeText(window.location.href);
         setShareLinkCopied(true);
@@ -149,8 +147,8 @@ const Apartment = () => {
                     }
                 </ul>
                 {apartment.description && <div className="apartment__description">{apartment.description}</div>}
-                {auth.currentUser?.uid !== apartment.userId && (
-                    <Link to="" className="apartment__owner button button--accent">Contact house owner</Link>
+                {auth.currentUser?.uid !== apartment.userID && (
+                    <Link to={`/contact/${apartment.userID}?apartment=${params.apartmentId}`} className="apartment__owner button button--accent">Contact house owner</Link>
                 )}
             </div>
         </main>
