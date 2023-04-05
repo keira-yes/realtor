@@ -86,7 +86,7 @@ const SignIn = () => {
                                     </div>
                                 </div>
                                 <div className="form__submit">
-                                    <button type="submit" className="form__submit-btn button button--accent">Log in</button>
+                                    <button type="submit" className="form__submit-btn button button--accent">Log In</button>
                                 </div>
                             </form>
                         </div>

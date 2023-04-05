@@ -106,7 +106,7 @@ const SignUp = () => {
                                 </div>
                             </div>
                             <div className="form__submit">
-                                <button type="submit" className="form__submit-btn button button--accent">Create account</button>
+                                <button type="submit" className="form__submit-btn button button--accent">Create Account</button>
                             </div>
                         </form>
                         </div>

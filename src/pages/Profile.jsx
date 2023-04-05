@@ -104,7 +104,7 @@ const Profile = () => {
                         </button>
                     </div>
                     <div className="profile__link">
-                        <Link to="/add-apartment" className="button button--accent">Add new apartment</Link>
+                        <Link to="/add-apartment" className="button button--accent">Add New Apartment</Link>
                     </div>
                 </main>
             </div>
