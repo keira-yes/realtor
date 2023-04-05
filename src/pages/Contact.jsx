@@ -8,10 +8,14 @@ import { toast } from "react-toastify";
 const Contact = () => {
     const [message, setMessage] = useState("");
     const [owner, setOwner] = useState(null);
-    const [searchParams, setSearchParams] = useState(null);
+    const [searchParams, setSearchParams] = useSearchParams();
     const [loading, setLoading] = useState(true);
 
     const params = useParams();
+
+    const onChangeInput = e => {
+        setMessage(e.target.value);
+    }
 
     useEffect(() => {
         const fetchContact = async () => {
@@ -34,7 +38,23 @@ const Contact = () => {
     return (
         <main className="contact">
             <div className="contact__container container">
-                Contact
+                <h1 className="contact__title">Contact {owner?.name}</h1>
+                <form className="contact__form form">
+                    <div className="form__field">
+                        <label htmlFor="message" className="form__label">Message</label>
+                        <textarea
+                            id="message"
+                            className="form__field-input"
+                            name="message"
+                            value={message}
+                            placeholder="Text your message to the apartment owner"
+                            onChange={onChangeInput}
+                        />
+                    </div>
+                    <div className="form__submit">
+                        <a href={`mailto:${owner.email}?Subject=${searchParams.get("apartmentTitle")}&body=${message}`} className="form__submit-btn button button--accent">Send Message</a>
+                    </div>
+                </form>
             </div>
         </main>
     );

@@ -151,7 +151,7 @@ const Apartment = () => {
                 </ul>
                 {apartment.description && <div className="apartment__description">{apartment.description}</div>}
                 {auth.currentUser?.uid !== apartment.userID && (
-                    <Link to={`/contact/${apartment.userID}?apartment=${params.apartmentId}`} className="apartment__owner button button--accent">Contact house owner</Link>
+                    <Link to={`/contact/${apartment.userID}?apartmentId=${params.apartmentId}&apartmentTitle=${apartment.title}`} className="apartment__owner button button--accent">Contact house owner</Link>
                 )}
             </div>
         </main>
