@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { register } from 'swiper/element/bundle';
 import { getDoc, doc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { db } from "../firebase.config";
 import Loader from "../components/Loader";
 import { toast } from "react-toastify";
+
+register();
 
 const Apartment = () => {
     const [apartment, setApartment] = useState(null);
@@ -46,6 +49,13 @@ const Apartment = () => {
     return (
         <main className="apartment">
             <div className="apartment__container container">
+                <div className="apartment__slider">
+                    <swiper-container pagination="true" loop="true">
+                        {apartment.images.map((image, index) => (
+                            <swiper-slide key={index}><img src={image} alt="Apartment"/></swiper-slide>
+                        ))}
+                    </swiper-container>
+                </div>
                 <h1 className="apartment__title">
                     {apartment.title}
                     {apartment.hotOffers &&
