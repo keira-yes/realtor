@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { getDoc, doc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { db } from "../firebase.config";
@@ -30,6 +31,7 @@ const Apartment = () => {
 
             if (docSnap.exists()) {
                 setApartment(docSnap.data());
+                console.log(docSnap.data())
             } else {
                 toast.error("Could not get the apartment");
             }
@@ -153,6 +155,17 @@ const Apartment = () => {
                 {auth.currentUser?.uid !== apartment.userID && (
                     <Link to={`/contact/${apartment.userID}?apartmentId=${params.apartmentId}&apartmentTitle=${apartment.title}`} className="apartment__owner button button--accent">Contact House Owner</Link>
                 )}
+                <div className="apartment__map">
+                    <MapContainer center={[apartment.coordinates.lat, apartment.coordinates.lng]} zoom={13} scrollWheelZoom={false}>
+                        <TileLayer
+                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />
+                        <Marker position={[apartment.coordinates.lat, apartment.coordinates.lng]}>
+                            <Popup>{apartment.address}<br/>{apartment.city}<br/>{apartment.postalCode}</Popup>
+                        </Marker>
+                    </MapContainer>
+                </div>
             </div>
         </main>
     );

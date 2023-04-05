@@ -873,3 +873,17 @@ input[type="file"]::file-selector-button {
     padding-top: 40px;
     text-align: center;
 }
+
+/* Apartment ************************************************************************/
+
+.apartment__map > * {
+    height: 450px;
+}
+
+.apartment__map .leaflet-popup-content {
+    min-width: 100px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #456078;
+}
