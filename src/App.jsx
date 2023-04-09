@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { register } from 'swiper/element/bundle';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Home from "./pages/Home";
@@ -14,6 +15,9 @@ import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
 import Navbar from "./components/Navbar";
 import ProfileRoute from "./components/ProfileRoute";
+
+// Register Swiper slider
+register();
 
 const App = () => {
     return (

@@ -11,8 +11,8 @@ import {
 } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { db } from "../firebase.config";
-import Loader from "../components/Loader";
 import ApartmentPreview from "../components/ApartmentPreview";
+import Loader from "../components/Loader";
 
 const HotOffers = () => {
     const [lists, setLists] = useState([]);

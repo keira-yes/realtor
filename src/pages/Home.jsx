@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Slider from "../components/Slider";
 import banner from "../assets/img/banner.jpg";
 import rent from "../assets/img/rent.jpg";
 import sale from "../assets/img/sale.jpg";
@@ -34,6 +35,7 @@ const Home = () => {
                         </div>
                     </Link>
                 </div>
+                <Slider />
                 <div className="home__description">
                     <h2 className="home__description-totle">About Realtor</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores, veritatis!</p>
