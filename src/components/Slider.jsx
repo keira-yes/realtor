@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
 import { db } from "../firebase.config";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 import ApartmentPreview from "./ApartmentPreview";
 import Loader from "./Loader";
 

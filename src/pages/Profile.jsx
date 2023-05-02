@@ -1,13 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { getAuth, updateProfile, updateEmail } from "firebase/auth";
-import { updateDoc, doc } from "firebase/firestore";
+import { updateDoc, doc, collection, getDocs, query, where, orderBy, deleteDoc } from "firebase/firestore";
 import { toast } from 'react-toastify';
 import { db } from "../firebase.config";
+import Loader from "../components/Loader";
+import ApartmentPreview from "../components/ApartmentPreview";
 
 const Profile = () => {
     const auth = getAuth();
 
+    const [lists, setLists] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [user, setUser] = useState({
         name: auth.currentUser.displayName,
         email: auth.currentUser.email
@@ -28,8 +32,38 @@ const Profile = () => {
         setUser(prevState => ({
             ...prevState,
             [e.target.name]: e.target.value
-        }))
+        }));
     }
+
+    useEffect(() => {
+        const fetchUserLists = async () => {
+            try {
+                const listsRef = collection(db, "lists");
+                const q = query(
+                    listsRef,
+                    where("userID", "==", auth.currentUser.uid),
+                    orderBy("timestamp", "desc")
+                );
+                const querySnap = await getDocs(q);
+                const lists = [];
+
+                querySnap.forEach(doc => {
+                    return lists.push({
+                        id: doc.id,
+                        data: doc.data()
+                    })
+                });
+
+                setLists(lists);
+                setLoading(false);
+
+            } catch (error) {
+                toast.error("Something went wrong...")
+            }
+        }
+
+        fetchUserLists();
+    }, [auth.currentUser.uid])
 
     const onChangeUser = async () => {
         try {
@@ -54,6 +88,15 @@ const Profile = () => {
         e.preventDefault();
         edit && onChangeUser();
         setEdit(prevState => !prevState);
+    }
+
+    const onDeleteApartment = async (apartmentId) => {
+        if (window.confirm("Are you sure you want to delete?")) {
+            await deleteDoc(doc(db, "lists", apartmentId));
+            const updatedLists = lists.filter(item => item.id !== apartmentId);
+            setLists(updatedLists);
+            toast.success("Apartment was successfully deleted");
+        }
     }
 
     return (
@@ -106,6 +149,16 @@ const Profile = () => {
                     <div className="profile__link">
                         <Link to="/add-apartment" className="button button--accent">Add New Apartment</Link>
                     </div>
+                    {loading && <Loader />}
+                    {lists?.length > 0 &&
+                    <div className="profile__apartments">
+                        <h2 className="profile__title">Apartments</h2>
+                        <div className="profile__lists">
+                            {lists.map(item => (
+                                <ApartmentPreview key={item.id} id={item.id} data={item.data} onDelete={onDeleteApartment} />
+                            ))}
+                        </div>
+                    </div>}
                 </main>
             </div>
         </div>

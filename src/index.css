@@ -557,7 +557,7 @@ input[type="file"]::file-selector-button {
     width: 100%;
     box-shadow: 0 -4px 15px rgba(190, 205, 226, 0.25);
     background-color: #F2F3F7;
-    z-index: 10;
+    z-index: 1000;
 }
 
 .navbar__list {
