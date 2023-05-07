@@ -16,6 +16,7 @@ import Loader from "../components/Loader";
 
 const HotOffers = () => {
     const [lists, setLists] = useState([]);
+    const [lastFetchedApartment, setLastFetchedApartment] = useState(null);
     const [loading, setLoading] = useState(true);
 
     const params = useParams();
@@ -28,9 +29,12 @@ const HotOffers = () => {
                     listsRef,
                     where("hotOffers", "==", true),
                     orderBy("timestamp", "desc"),
-                    limit(10)
+                    limit(2)
                 );
                 const querySnap = await getDocs(q);
+                const lastVisibleApartment = querySnap.docs[querySnap.docs.length - 1];
+                setLastFetchedApartment(lastVisibleApartment);
+
                 const lists = [];
 
                 querySnap.forEach(doc => {
@@ -50,6 +54,37 @@ const HotOffers = () => {
         fetchLists();
     }, []);
 
+    const fetchMoreLists = async () => {
+        try {
+            const listsRef = collection(db, "lists");
+            const q = query(
+                listsRef,
+                where("hotOffers", "==", true),
+                orderBy("timestamp", "desc"),
+                startAfter(lastFetchedApartment),
+                limit(2)
+            );
+            const querySnap = await getDocs(q);
+            const lastVisibleApartment = querySnap.docs[querySnap.docs.length - 1];
+            setLastFetchedApartment(lastVisibleApartment);
+
+            const lists = [];
+
+            querySnap.forEach(doc => {
+                return lists.push({
+                    id: doc.id,
+                    data: doc.data()
+                })
+            });
+
+            setLists(prevState => [...prevState, ...lists]);
+            setLoading(false);
+
+        } catch (error) {
+            toast.error("Something went wrong...")
+        }
+    }
+
     return (
         <div className="category">
             <div className="category__container container">
@@ -63,6 +98,11 @@ const HotOffers = () => {
                                 <ApartmentPreview key={item.id} id={item.id} data={item.data} />
                             ))}
                         </div>
+                    }
+                    {lastFetchedApartment &&
+                    <div className="category__more">
+                        <button type="button" className="category__more-btn" onClick={fetchMoreLists}>Load more</button>
+                    </div>
                     }
                 </div>
             </div>

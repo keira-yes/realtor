@@ -154,8 +154,6 @@ const AddApartment = () => {
             timestamp: serverTimestamp()
         }
 
-        console.log(formDataUpdated)
-
         const docRef = await addDoc(collection(db, "lists"), formDataUpdated);
         toast.success('Apartment is added!');
         navigate(`/category/${formDataUpdated.type}/${docRef.id}`);
