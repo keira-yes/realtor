@@ -8,6 +8,7 @@ import Apartment from "./pages/Apartment";
 import HotOffers from "./pages/HotOffers";
 import Profile from "./pages/Profile";
 import AddApartment from "./pages/AddApartment";
+import EditApartment from "./pages/EditApartment";
 import Contact from "./pages/Contact";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
@@ -32,6 +33,7 @@ const App = () => {
                         <Route path='/profile' element={<Profile />} />
                     </Route>
                     <Route path='/add-apartment' element={<AddApartment />} />
+                    <Route path='/edit-apartment/:apartmentId' element={<EditApartment />} />
                     <Route path='/contact/:contactId' element={<Contact />} />
                     <Route path='/sign-in' element={<SignIn />} />
                     <Route path='/sign-up' element={<SignUp />} />

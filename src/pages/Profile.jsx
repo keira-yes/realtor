@@ -99,6 +99,10 @@ const Profile = () => {
         }
     }
 
+    const onEditApartment = (apartmentId) => {
+        navigate(`/edit-apartment/${apartmentId}`)
+    }
+
     return (
         <div className="profile">
             <div className="profile__container container">
@@ -155,7 +159,13 @@ const Profile = () => {
                         <h2 className="profile__title">Apartments</h2>
                         <div className="profile__lists">
                             {lists.map(item => (
-                                <ApartmentPreview key={item.id} id={item.id} data={item.data} onDelete={onDeleteApartment} />
+                                <ApartmentPreview
+                                    key={item.id}
+                                    id={item.id}
+                                    data={item.data}
+                                    onDelete={onDeleteApartment}
+                                    onEdit={onEditApartment}
+                                />
                             ))}
                         </div>
                     </div>}
