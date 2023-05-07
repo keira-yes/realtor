@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { doc, updateDoc, getDoc, addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { doc, updateDoc, getDoc, serverTimestamp } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
 import { db } from "../firebase.config";
 import Loader from "../components/Loader";
 
 const EditApartment = () => {
-    const [geocodingEnabled, setGeocodingEnabled] = useState(true);
+    const [geocodingEnabled] = useState(true);
     const [apartment, setApartment] = useState(null);
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
@@ -105,6 +105,8 @@ const EditApartment = () => {
                             case 'running':
                                 console.log('Upload is running');
                                 break;
+                            default:
+                                break;
                         }
                     },
                     (error) => {
@@ -184,7 +186,7 @@ const EditApartment = () => {
         }
 
         fetchApartment();
-    }, [params.apartmentId]);
+    }, [params.apartmentId, navigate]);
 
     // Set apartment data or redirect to sign-in
     useEffect(() => {
@@ -195,7 +197,7 @@ const EditApartment = () => {
                 navigate("/sign-in");
             }
         })
-    }, []);
+    }, [auth, formData, navigate]);
 
     // Redirect to Home page if user is not creator of apartment
     useEffect(() => {
@@ -203,7 +205,7 @@ const EditApartment = () => {
             toast.error("You can't edit this apartment");
             navigate("/profile");
         }
-    }, []);
+    }, [apartment, auth.currentUser.uid, navigate]);
 
     if (loading) return <Loader />;
 

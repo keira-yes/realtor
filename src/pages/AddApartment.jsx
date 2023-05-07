@@ -9,7 +9,7 @@ import { db } from "../firebase.config";
 import Loader from "../components/Loader";
 
 const AddApartment = () => {
-    const [geocodingEnabled, setGeocodingEnabled] = useState(true);
+    const [geocodingEnabled] = useState(true);
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         title: "",
@@ -103,6 +103,8 @@ const AddApartment = () => {
                             case 'running':
                                 console.log('Upload is running');
                                 break;
+                            default:
+                                break;
                         }
                     },
                     (error) => {
@@ -169,7 +171,7 @@ const AddApartment = () => {
                 navigate("/sign-in");
             }
         })
-    }, []);
+    }, [auth, formData, navigate]);
 
     if (loading) return <Loader />;
 
